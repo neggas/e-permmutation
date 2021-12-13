@@ -1,14 +1,20 @@
 import { Injectable } from '@nestjs/common';
+import { Demande,DemandeDocument } from './Models/demandes.model';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 
 @Injectable()
 export class DemandesService {
-  create(createDemandeDto) {
-    return 'This action adds a new demande';
+
+  constructor(@InjectModel(Demande.name) private readonly DemandeModel : Model<DemandeDocument>){}
+  create(demande) {
+    const _demande = new this.DemandeModel(demande);
+    return _demande.save()
   }
 
-  findAll() {
-    return `This action returns all demandes`;
+  async findAll() {
+    return await this.DemandeModel.find().lean().populate("agent_demandeur").exec();
   }
 
   findOne(id: number) {

@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import {Document,Schema as MongooseSchema} from "mongoose"
+import { Demande } from "src/demandes/Models/demandes.model";
 
 @Schema()
 export class Agent{
@@ -57,6 +58,13 @@ export class Agent{
 
     @Prop({required:true})
     Email_Agt:string;
+
+    @Prop({ 
+        type: MongooseSchema.Types.ObjectId, 
+        ref: Demande.name,
+        default:null 
+    })
+    demande:Demande
 }
 
 export type AgentDocument = Agent & Document;
