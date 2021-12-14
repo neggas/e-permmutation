@@ -17,8 +17,8 @@ export class DemandesService {
     return await this.DemandeModel.find().lean().populate("agent_demandeur").exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} demande`;
+  async findOne(id: string) {
+    return await this.DemandeModel.findById(id).lean().populate("agent_demandeur").exec();
   }
 
   update(id: number, updateDemandeDto) {

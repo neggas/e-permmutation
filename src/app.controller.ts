@@ -1,4 +1,4 @@
-import { Body, Controller, Get,Post,Render } from '@nestjs/common';
+import { Body, Controller, Get,Post,Render,Param } from '@nestjs/common';
 import { AgentsService } from './agents/agents.service';
 import { AppService } from './app.service';
 import { DemandesService } from './demandes/demandes.service';
@@ -24,10 +24,11 @@ export class AppController {
   }
 
 
-  @Get("/apercu-dmde")
+  @Get("/apercu-dmde/:id")
   @Render("apercu-dmde")
-  async voirDemande(){
-    return;
+  async voirDemande(@Param('id') id : string){
+    const demande = await this.demandeService.findOne(id);
+    return {demande}
   }
 
   @Get("/inscription")

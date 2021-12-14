@@ -4,6 +4,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import { engine } from 'express-handlebars';
 import flash = require('connect-flash');
+import  {dateNaissance} from "./utils"
 
 
 
@@ -15,10 +16,18 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'public'));
   const viewsPath = join(__dirname, '..','views');
 
-  app.engine('.hbs',engine({extname:".hbs",defaultLayout:'main'}));
+    const helpers = {
+      dateNaissance: (date) => dateNaissance(date),
+    }
+
+  app.engine('.hbs',engine({
+    extname:".hbs",defaultLayout:'main',helpers
+  }));
+
   app.set('views', viewsPath);
   app.set('view engine', '.hbs');
   app.use(flash());
+
 
 
   await app.listen(3000);
