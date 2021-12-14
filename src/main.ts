@@ -4,7 +4,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import { engine } from 'express-handlebars';
 import flash = require('connect-flash');
-import  {dateNaissance} from "./utils"
+import  {dateNaissance,formatDemandeId} from "./utils"
 
 
 
@@ -18,6 +18,7 @@ async function bootstrap() {
 
     const helpers = {
       dateNaissance: (date) => dateNaissance(date),
+      DemandeId:(demandeId) => formatDemandeId(demandeId)
     }
 
   app.engine('.hbs',engine({

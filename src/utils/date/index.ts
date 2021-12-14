@@ -24,6 +24,8 @@ export const formatDate = (date_ob:Date) : string =>{
 }
 
 export const dateNaissance = (date_ob)=>{
+
+    if(!date_ob){return ''}
     // adjust 0 before single digit date
     let date = ("0" + date_ob.getDate()).slice(-2);
 
